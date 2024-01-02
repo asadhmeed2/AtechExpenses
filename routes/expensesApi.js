@@ -4,17 +4,16 @@ const router = express.Router()
 const Expense = require('../model/Expense')
 
 router.get('/', function (req, res) {
-    Expense.find({}).then( function (people) {
-        res.send(people)
+    Expense.find({}).sort({date:-1}).then( function (expenses) {
+        res.send(expenses)
     })
 })
 
 router.post('/', function (req, res) {
-    const person = req.body
+    const expense = req.body
     try{
 
-        Expense.create(person).then( function (data){
-            console.log(data);
+        Expense.create(expense).then( function (data){
             res.status(201).json(data)
         })
     }catch(error){

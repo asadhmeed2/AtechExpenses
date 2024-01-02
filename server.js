@@ -1,6 +1,6 @@
 const express = require('express');
 
-const api = require('./routes/api')
+const expensesApi = require('./routes/expensesApi')
 
 const {InitDataBase} = require('./initDatabase')
 
@@ -16,7 +16,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/peopleDB", {})
 
 InitDataBase();
 
-app.use('/expense', api)
+app.use('/expense', expensesApi)
 
 const port = 4200
 app.listen(port, function () {
