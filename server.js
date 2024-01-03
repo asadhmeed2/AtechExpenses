@@ -18,7 +18,7 @@ InitDataBase();
 
 app.use('/expense', expensesApi)
 
-const port = 4200
+const port = 4300
 app.listen(port, function () {
     console.log(`Running on port ${port}`)
 })
