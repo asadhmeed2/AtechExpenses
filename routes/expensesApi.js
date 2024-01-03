@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Expense = require('../model/Expense')
 
-const {isDate,isNotUndefined,isAvailableGroup} = require('../utilties/expenseUtilty')
+const {isDate,isNotUndefined,isAvailableGroup,mapEpense} = require('../utilties/expenseUtilty')
 
 router.get('/', function (req, res) {
     Expense.find({}).sort({date:-1}).then( function (expenses) {
@@ -17,11 +17,11 @@ router.post('/', function (req, res) {
     try{
         isNotUndefined(expense)
         
-        isDate(expense.date)
-
         isAvailableGroup(expense.group)
 
-        Expense.create(expense).then( function (data){
+        const mappedExpenses = mapEpense(expense)
+
+        Expense.create(mappedExpenses).then( function (data){
             res.status(201).json(data)
         })
     }catch(error){

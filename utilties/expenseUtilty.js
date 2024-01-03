@@ -4,6 +4,19 @@ const {NotADateError,ExpenseUndefinedError,NotAExpenseGroupError} = require('../
 
 const {EXPENSE_GROUP} = require('../config/config')
 
+const mapEpense=(expense)=>{
+    let date = ''
+    if(!expense.date){
+        date = new Date(); 
+    }else{
+        date = expense.date;
+    }
+    return{
+        ...expense,
+        date : moment(date).format('LLLL')
+    }
+}
+
 const isDate =(date)=>{
     if(!moment(date).isValid()){
         throw new NotADateError();
@@ -26,5 +39,6 @@ const isAvailableGroup =(group)=>{
 module.exports ={
     isDate,
     isNotUndefined,
-    isAvailableGroup
+    isAvailableGroup,
+    mapEpense
 }
