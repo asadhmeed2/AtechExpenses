@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const fs = require("fs")
-const data = JSON.parse(fs.readFileSync(`${__dirname}/expenses.json`))
+const data = require(`./expenses`)
 
 const Expense = require('./model/Expense')
 
@@ -13,7 +12,9 @@ const onInsert = function (err, docs) {
 const InitDataBase=()=>{
     Expense.find({}).then(expenses=>{
         if(!expenses.length){
-            Expense.collection.insertMany(data, onInsert)
+            const expeses = data.map(item => new Expense(item));
+            
+            Expense.collection.insertMany(expeses, onInsert)
         }
     })
 }
