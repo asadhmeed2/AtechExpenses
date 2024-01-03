@@ -30,13 +30,13 @@ router.post('/', function (req, res) {
     }
 })
 
-router.put('/:id', function (req, res) {
-    const personId = req.params.id;
-    const person = req.body
+router.put('/update', function (req, res) {
+
+    const {group1, group2} =req.body
     
-        Expense.findByIdAndUpdate(personId,person,{new:true}).then( function (data){
+        Expense.findOneAndUpdate({group:group1},{group:group2},{new:true}).then( function (data){
             console.log(data);
-            res.status(201).json(data)
+            res.status(201).json(`expense ${data.item} group changed from ${group1} to ${group2}`)
         }).catch(error=>{
             console.error(error);
         })
